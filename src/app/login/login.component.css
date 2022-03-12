@@ -4,20 +4,37 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    
     background-color: #ffffff;
 }
 
 .login-card{
     background-color: #fed502;
     width: 400px;
-    height: 340px;
+    min-height: 340px;
     border: 1px solid #d7d7d7;
     border-radius: 10px;
-    text-align: center;
     padding: 25px;
 }
 
 .login-card button {
     width: 100%;
+}
+
+.left{
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+@media screen and (max-width: 480px) {
+    .login-card-container{
+        background-color: #fed502;
+    }
+
+    .login-card{
+        width: 100%;
+        border: none;
+    }
 }

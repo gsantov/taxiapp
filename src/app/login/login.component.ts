@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastService } from '../services/toast/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +10,12 @@ import { FormControl } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  userName = new FormControl('');
-  password = new FormControl('');
+  loginForm = new FormGroup({
+    userName: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
 
-  constructor() { }
+  constructor(private router: Router, public toastService: ToastService) { }
 
   ngOnInit(): void {
   }
@@ -19,16 +23,30 @@ export class LoginComponent implements OnInit {
   /**
    * Login method
    */
-  clickLogin(){
-    // validate user
+  clickLogin() {
+    if(!this.loginForm.valid){
+      this.toastService.showInfo('Por favor llenar todos los campos requeridos');
+      return;
+    }
+    // TODO validate user
+    if (this.loginForm.value.userName == 'admin') {
+      this.router.navigate(['admin']);
+    } else {
+      this.router.navigate(['cooperative']);
+    }
 
   }
 
   /**
    * Recover password
    */
-  recoverPassword(){
+  recoverPassword() {
 
+  }
+
+  validateFormField(field:string) {
+    return this.loginForm.get(field)?.errors && 
+      (this.loginForm.get(field)?.dirty || this.loginForm.get(field)?.touched)
   }
 
 }

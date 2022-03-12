@@ -3,3 +3,16 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
+.close-toast-btn {
+    text-align: center;
+    cursor: pointer;
+}
+
+.bg-taxi {
+    background-color: #fed502;
+}
+
+.text-primary {
+    color: #fed502;
+}

@@ -1,16 +1,22 @@
 <div class="login-card-container">
     <div class="login-card">
-        <h1>TaxiApp</h1>
-        <div>
-            <label for="userName">Usuario:</label>
-            <input id="userName" type="text" class="form-control" [formControl]="userName">
+        <h1 class="center">TaxiApp</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="clickLogin()" class="form-group">
+            <label for="userName">Nombre de usuario:</label>
+            <input id="userName" type="text" class="form-control" formControlName="userName">
+            <div *ngIf="validateFormField('userName')" class="text-danger">
+                <small>Nombre de usuario es requerido</small>
+            </div>
             <br>
             <label for="password">Contraseña:</label>
-            <input id="password" type="text" class="form-control" [formControl]="password">
+            <input id="password" type="password" class="form-control" formControlName="password">
+            <div *ngIf="validateFormField('password')" class="text-danger">
+                <small>Contraseña es requerido</small>
+            </div>
             <br>
-            <button type="button" class="btn btn-dark" (click)="clickLogin()">Ingresar</button>
+            <button type="submit" class="btn btn-dark">Ingresar</button>
             <br>
             <button type="button" class="btn btn-link" (click)="recoverPassword()">¿Olvidó su contraseña?</button>
-        </div>
+        </form>
     </div>
 </div>
