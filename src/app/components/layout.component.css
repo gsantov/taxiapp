@@ -12,6 +12,11 @@
 .layout-content {
     width: 100%;
     height: calc(100vh - 67px);
+    padding: 13px;
+
+    overflow-y: auto;
+    margin-bottom: 50px;
+    padding-bottom: 30px;
 }
 
 /* LAYOUT */
@@ -33,6 +38,16 @@ main {
     background-color: #000000;
 }
 
+.taxi-active-submenu {
+    background-color: #545353;
+    color: #ffffff;
+}
+
+.taxi-active-submenu:hover{
+    color: #ffffff;
+    background-color: #3c3c3c;
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -43,6 +58,39 @@ main {
 
 .btn-header {
     margin: 14px;
+}
+
+#sidebar {
+    width: var(--sidebar-width);
+}
+
+#sidebar img{
+    width: 150px;
+    height: 150px;
+    margin: 0px auto;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.coop-name{
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+.coop-name-banner{
+    display: inline-block;
+    width: calc(100% - 75px);
+    vertical-align: sub;
+}
+
+.menu-btn{
+    width: 45px;
+}
+
+.submenu {
+    margin-left: 10px;
 }
 
 @media screen and (max-width: 680px) {

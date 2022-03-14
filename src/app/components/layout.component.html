@@ -1,22 +1,45 @@
 <main (window:resize)="onResize($event)">
-    <div id="sidebar" class=" flex-column flex-shrink-0 p-3 bg-taxi-soft" style="width: 280px;"
-            [ngClass]="{'d-flex': !showSidebar}"  [hidden]="showSidebar">
+
+    <div id="sidebar" class=" flex-column flex-shrink-0 p-3 bg-taxi-soft" [ngClass]="{'d-flex': !showSidebar}"
+        [hidden]="showSidebar">
         <span class="fs-4">TaxiApp </span>
+        <hr>
+        <img [src]="imgSrc" alt="">
+        <div class="coop-name">
+            {{coopName}}
+        </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item" *ngFor="let item of menu">
-                <a class="nav-link pointer" [ngClass]="{'taxi-active': item.active, 'link-dark': !item.active}"
-                    (click)="clickMenu(item.id!)">
-                    {{item.name}}
-                </a>
+                <div class="nav-link pointer" [ngClass]="{'taxi-active': item.active, 'link-dark': !item.active}">
+                    <div style="width: 90%; display: inline-block;" (click)="clickMenu(item)">
+                        {{item.name}}
+                        
+                    </div>
+                    <div style="width: 10%; display: inline-block; text-align: center;" (click)="openSubMenu(item)">
+                        <fa-icon *ngIf="item.children" [icon]="['fas', 'angle-down']"></fa-icon>
+                    </div>
+                </div>
+                <ul class="nav nav-pills flex-column mb-auto" [hidden]="!item.opened">
+                    <li class="nav-item" *ngFor="let subItem of item.children">
+                        <a class="nav-link pointer submenu"
+                            [ngClass]="{'taxi-active-submenu': subItem.active, 'link-dark': !subItem.active}"
+                            (click)="clickMenu(item, subItem)">
+                            {{subItem.name}}
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>
     <div class="content-wrapper">
         <div class="head-banner">
-            <button type="button" class="btn btn-dark btn-header" (click)="togleSidebar()">
+            <button type="button" class="btn btn-dark btn-header menu-btn" (click)="togleSidebar()">
                 <fa-icon [icon]="['fas', 'bars']"></fa-icon>
             </button>
+            <div [hidden]="!showSidebar" class="coop-name coop-name-banner">
+                {{coopName}}
+            </div>
         </div>
         <div class="layout-content">
             <router-outlet></router-outlet>

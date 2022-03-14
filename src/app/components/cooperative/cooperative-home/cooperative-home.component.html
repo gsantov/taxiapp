@@ -1,16 +1,36 @@
-<div style="display: inline-block;">
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
-    <p>cooperative-home works!</p>
+<div class="row">
+    <div class="col-md-12 col-lg-4 chart-container">
+        <div class="dashboard-card">
+            <div style="height: 250px;">
+                <canvas baseChart height="250" [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+                </canvas>
+            </div>
+            <div class="chart-title">
+                Aporte por mes
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-4 chart-container">
+        <div class="dashboard-card">
+            <div style="height: 250px;">
+                <canvas baseChart [data]="barChartData" [type]="barChartType" [options]="barChartOptions">
+                </canvas>
+            </div>
+
+            <div class="chart-title">
+                Carreras por mes
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-lg-4 chart-container">
+        <div class="dashboard-card">
+            <div style="height: 250px;">
+                <canvas baseChart height="250" [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions">
+                </canvas>
+            </div>
+            <div class="chart-title">
+                Días trabajados
+            </div>
+        </div>
+    </div>
 </div>
-
-
