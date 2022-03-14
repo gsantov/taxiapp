@@ -1,0 +1,52 @@
+.head-banner{
+    width: 100%;
+    height: 67px;
+    background-color: var(--taxi-soft);
+}
+
+.content-wrapper {
+    width: 100%;
+    height: 100vh;
+}
+
+.layout-content {
+    width: 100%;
+    height: calc(100vh - 67px);
+}
+
+/* LAYOUT */
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+  
+.taxi-active{
+    color: white;
+    background-color: #282828;
+}
+
+.taxi-active:hover{
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.hide-sidebar {
+    display: none !important;
+}
+
+.btn-header {
+    margin: 14px;
+}
+
+@media screen and (max-width: 680px) {
+    /* .d-flex{
+        display: none !important;
+    } */
+}

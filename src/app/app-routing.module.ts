@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CooperativeListComponent } from './administration/cooperative-list/cooperative-list.component';
-import { CooperativeHomeComponent } from './cooperative/cooperative-home/cooperative-home.component';
+import { LayoutComponent } from './components/layout.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: CooperativeListComponent },
-  { path: 'cooperative', component: CooperativeHomeComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'admin', loadChildren: () => import('./components/administration/administration.module').then(m => m.AdministrationModule) },
+      { path: 'coperativa', loadChildren: () => import('./components/cooperative/cooperative.module').then(m => m.CooperativeModule) },
+    ]
+  }
 ];
 
 @NgModule({

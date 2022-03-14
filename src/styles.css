@@ -1,4 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --taxi: #fed502;
+    --taxi-soft: #fed502b3;
+}
+
+
 body {
     margin: 0px;
     padding: 0px;
@@ -10,9 +15,13 @@ body {
 }
 
 .bg-taxi {
-    background-color: #fed502;
+    background-color: var(--taxi);
+}
+
+.bg-taxi-soft{
+    background-color: var(--taxi-soft);
 }
 
 .text-primary {
-    color: #fed502;
+    color: var(--taxi);
 }

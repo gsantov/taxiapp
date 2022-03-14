@@ -8,7 +8,7 @@
 }
 
 .login-card{
-    background-color: #fed502;
+    background-color: var(--taxi);
     width: 400px;
     min-height: 340px;
     border: 1px solid #d7d7d7;
@@ -30,7 +30,7 @@
 
 @media screen and (max-width: 480px) {
     .login-card-container{
-        background-color: #fed502;
+        background-color: var(--taxi);
     }
 
     .login-card{

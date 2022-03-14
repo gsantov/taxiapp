@@ -1,0 +1,25 @@
+<main (window:resize)="onResize($event)">
+    <div id="sidebar" class=" flex-column flex-shrink-0 p-3 bg-taxi-soft" style="width: 280px;"
+            [ngClass]="{'d-flex': !showSidebar}"  [hidden]="showSidebar">
+        <span class="fs-4">TaxiApp </span>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item" *ngFor="let item of menu">
+                <a class="nav-link pointer" [ngClass]="{'taxi-active': item.active, 'link-dark': !item.active}"
+                    (click)="clickMenu(item.id!)">
+                    {{item.name}}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="content-wrapper">
+        <div class="head-banner">
+            <button type="button" class="btn btn-dark btn-header" (click)="togleSidebar()">
+                <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+            </button>
+        </div>
+        <div class="layout-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</main>

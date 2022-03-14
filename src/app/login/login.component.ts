@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.value.userName == 'admin') {
       this.router.navigate(['admin']);
     } else {
-      this.router.navigate(['cooperative']);
+      this.router.navigate(['coperativa']);
     }
 
   }
