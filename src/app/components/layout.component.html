@@ -4,9 +4,9 @@
         [hidden]="showSidebar">
         <span class="fs-4">TaxiApp </span>
         <hr>
-        <img [src]="imgSrc" alt="">
+        <img [src]="userService.currentUser!.enterprise!.profileImage" alt="">
         <div class="coop-name">
-            {{coopName}}
+            {{userService.currentUser!.enterprise!.name}}
         </div>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
@@ -38,7 +38,7 @@
                 <fa-icon [icon]="['fas', 'bars']"></fa-icon>
             </button>
             <div [hidden]="!showSidebar" class="coop-name coop-name-banner">
-                {{coopName}}
+                {{userService.currentUser!.enterprise!.name}}
             </div>
         </div>
         <div class="layout-content">

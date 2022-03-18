@@ -12,6 +12,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { LayoutComponent } from './components/layout.component';
+import { TableModule } from 'primeng/table';
   
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LayoutComponent } from './components/layout.component';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

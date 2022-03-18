@@ -1,1 +1,86 @@
-<p>cooperative-profile works!</p>
+<div class="content-card-container">
+    <div class="content-card">
+        <div class="row">
+            <div class="profile-imge-container">
+                <img class="profile-background" [src]="userService.currentUser!.enterprise!.backgroundImage" alt="">
+                <img class="profile-imge" [src]="userService.currentUser!.enterprise!.profileImage" alt="">
+                <button type="button" *ngIf="!edit" (click)="editProfile()" class="btn btn-dark">
+                    <fa-icon [icon]="['fas', 'edit']"></fa-icon>
+                    Editar
+                </button>
+            </div>
+        </div>
+        <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="form-group">
+            <div class="row content">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label for="name">Nombre:</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span *ngIf="!edit">{{empresa.name}}</span>
+                            <input *ngIf="edit" id="name" type="text" class="form-control" formControlName="name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label for="ruc">RUC:</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span *ngIf="!edit">{{empresa.ruc}}</span>
+                            <input *ngIf="edit" id="ruc" type="text" class="form-control" formControlName="ruc">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label for="address">Dirección:</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span *ngIf="!edit">{{empresa.address}}</span>
+                            <input *ngIf="edit" id="address" type="text" class="form-control" formControlName="address">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label for="phoneNumber">Teléfono:</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span *ngIf="!edit">{{empresa.phoneNumber}}</span>
+                            <input *ngIf="edit" id="phoneNumber" type="text" class="form-control" formControlName="phoneNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label for="mobileNumber">Celular:</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <span *ngIf="!edit">{{empresa.mobileNumber}}</span>
+                            <input *ngIf="edit" id="mobileNumber" type="text" class="form-control" formControlName="mobileNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer form-button-container" *ngIf="edit">
+                    <button type="submit" class="btn btn-success"> 
+                        <fa-icon [icon]="['fas', 'save']"></fa-icon>
+                        Guardar
+                    </button>
+                    <button type="button" (click)="cancelEdit()" class="btn btn-danger">
+                        <fa-icon [icon]="['fas', 'times']"></fa-icon>
+                        Cancelar
+                    </button>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+
+
+</div>

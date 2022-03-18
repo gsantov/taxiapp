@@ -12,7 +12,7 @@
 .layout-content {
     width: 100%;
     height: calc(100vh - 67px);
-    padding: 13px;
+    /* padding: 13px; */
 
     overflow-y: auto;
     margin-bottom: 50px;
