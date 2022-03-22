@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
+import { lastValueFrom } from 'rxjs';
 import { DriverModel } from 'src/app/models/diver.model';
+import { CooperativeService } from 'src/app/services/cooperative/cooperative.service';
 
 @Component({
   selector: 'app-cooperative-drivers',
@@ -10,69 +13,121 @@ import { DriverModel } from 'src/app/models/diver.model';
 export class CooperativeDriversComponent implements OnInit {
 
   @ViewChild('driversTable') driversTable: Table | undefined;
-  driverList:Array<DriverModel> = [];
+  driverList: Array<DriverModel> = [];
+  rows = 4;
+  modalNew: boolean = false;
+  modalHeader: string = 'Nuevo conductor';
+  driverForm?: FormGroup;
+  originalDriver?: DriverModel;
+  submitted: boolean = false;
 
-  constructor() { }
+  bloodTypes = ['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-']
 
-  ngOnInit(): void {
-    this.driverList = [
-      {
-        driverName: 'Andrea Albuja',
-        driverDocumentNumber: '14785023697',
-        driverAddress: 'Cotocollao',
-        driverPhoto: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-        driverBloodType: 'A+',
-        driverNationality: 'Ecuatoriano',
-        driverAge: 42,
-        carBrand: 'Nissan',
-        carModel: 'Sentra',
-        carLicensePlate: 'PEL-8541',
-        carYear: 2005
-      },
-      {
-        driverName: 'Pedro Pablo Perlaza',
-        driverDocumentNumber: '08785023697',
-        driverAddress: 'San Roque',
-        driverPhoto: 'https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-        driverBloodType: 'B-',
-        driverNationality: 'Ecuatoriano',
-        driverAge: 35,
-        carBrand: 'Chevrolet',
-        carModel: 'Aveo',
-        carLicensePlate: 'GPR-7884',
-        carYear: 2017
-      },
-      {
-        driverName: 'Roris Aragon',
-        driverDocumentNumber: '08884530147',
-        driverAddress: 'Condado',
-        driverPhoto: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=440&q=80',
-        driverBloodType: 'A-',
-        driverNationality: 'Ecuatoriano',
-        driverAge: 35,
-        carBrand: 'Hyundai',
-        carModel: 'Accent',
-        carLicensePlate: 'PBR-5584',
-        carYear: 2013
-      },
-      {
-        driverName: 'Antonio Valencia',
-        driverDocumentNumber: '1785203641',
-        driverAddress: 'La Carolina',
-        driverPhoto: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-        driverBloodType: 'A+',
-        driverNationality: 'Ecuatoriano',
-        driverAge: 35,
-        carBrand: 'Chery',
-        carModel: 'Arizo 3',
-        carLicensePlate: 'PXY-5399',
-        carYear: 2019
-      }
-    ]
+  constructor(private cooperativeService: CooperativeService) {
+    this.resetForm();
   }
 
-  applyFilterGlobal($event:Event, stringVal:string) {
+  async ngOnInit() {
+    this.driverList = await lastValueFrom(this.cooperativeService.getAllDrivers());
+    this.driverList.forEach(elem => elem.driverAge = this.getAge(elem.driverBirth))
+  }
+
+  applyFilterGlobal($event: Event, stringVal: string) {
     this.driversTable?.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
-  
+
+  openModal(driver?: DriverModel) {
+    this.modalHeader = driver ? 'Editar conductor' : 'Nuevo conductor';
+    this.modalNew = true;
+    if (driver) {
+      this.driverForm!.setValue({
+        id: driver.id,
+        driverName: driver.driverName,
+        driverDocumentNumber: driver.driverDocumentNumber,
+        driverAddress: driver.driverAddress,
+        driverPhoto: driver.driverPhoto,
+        driverBloodType: driver.driverBloodType,
+        driverNationality: driver.driverNationality,
+        driverBirth: driver.driverBirth,
+        driverAge: driver.driverAge,
+        carBrand: driver.carBrand,
+        carModel: driver.carModel,
+        carLicensePlate: driver.carLicensePlate,
+        carYear: driver.carYear
+      })
+    }
+  }
+
+  saveDriver() {
+    console.log("this.driverForm", this.driverForm);
+    this.submitted = true;
+    if (typeof this.driverForm!.value.driverBirth === 'string') {
+      this.driverForm!.get('driverBirth')!.errors!['dateFormat'] = true;
+      return
+    }
+    if (this.driverForm!.invalid) {
+      return;
+    }
+    let bDate = this.driverForm!.value.driverBirth;
+    let toDb = this.driverForm!.value;
+    toDb.driverBirth = new Date(bDate.year, bDate.month, bDate.day).getTime();
+    this.driverForm!.value.driverAge = this.getAge(toDb.driverBirth);
+    if (this.driverForm!.value.id) {
+      // busco en lista
+      let index = this.driverList.findIndex(elem => elem.id == this.driverForm!.value.id);
+      // cambio por nuevo
+      this.driverList[index] = this.driverForm!.value;
+    } else {
+      this.driverForm!.value.id = this.driverList.length + 1;
+      // this.driverList.push(this.driverForm!.value);
+      // No se pede usar push debido a que no se actualiza la tabla
+      this.driverList = [...this.driverList, ...[this.driverForm!.value]]
+    }
+    this.modalNew = false;
+  }
+
+  closeDialog() {
+    this.modalNew = false;
+    // reset form value
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.submitted = false;
+    this.driverForm = new FormGroup({
+      id: new FormControl(''),
+      driverName: new FormControl('', Validators.required),
+      driverDocumentNumber: new FormControl('', Validators.required),
+      driverAddress: new FormControl('', Validators.required),
+      driverPhoto: new FormControl(''),
+      driverBloodType: new FormControl('', Validators.required),
+      driverNationality: new FormControl('', Validators.required),
+      driverAge: new FormControl(''),
+      driverBirth: new FormControl('', Validators.required),
+      carBrand: new FormControl('', Validators.required),
+      carModel: new FormControl('', Validators.required),
+      carLicensePlate: new FormControl('', Validators.required),
+      carYear: new FormControl('', Validators.required),
+    });
+  }
+
+  validateFormField(field: string, err: string) {
+    if (this.submitted) {
+      return this.driverForm!.get(field)?.errors![err]
+    }
+  }
+
+  get formControls() { return this.driverForm!.controls; }
+
+  getAge(dateString:any) {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
 }

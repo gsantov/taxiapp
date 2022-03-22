@@ -1,0 +1,33 @@
+.table-search{
+    width: 100%;
+}
+
+.table-search input{
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .btn-new{
+        width: 100%;
+        margin-bottom: 3px;
+    }
+
+    
+    /* .d-flex{
+        display: none !important;
+    } */
+}
+
+.content-list td div {
+    width: 100px; height: 100px;
+}
+
+.content-list td img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.table-container {
+    height: calc(100vh - 117px);
+}

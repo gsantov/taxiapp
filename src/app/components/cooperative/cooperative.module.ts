@@ -11,7 +11,10 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { TableModule } from 'primeng/table';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from "primeng/divider";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export const routes = [
   { path: '', component: CooperativeHomeComponent, pathMatch: 'full' },
@@ -27,15 +30,18 @@ export const routes = [
   ],
   imports: [
     CommonModule,
-    NgChartsModule ,
+    NgChartsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     FontAwesomeModule,
-    TableModule, 
-    InputTextModule
+    TableModule,
+    InputTextModule,
+    DialogModule,
+    DividerModule,
+    NgbModule
   ]
 })
-export class CooperativeModule { 
+export class CooperativeModule {
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas, far, fab);
   }

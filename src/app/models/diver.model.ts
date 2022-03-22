@@ -1,11 +1,12 @@
 export class DriverModel{
-    id?:string;
+    id?:number;
     driverName?:string;
     driverDocumentNumber?:string;
     driverAddress?:string;
     driverPhoto?:string;
     driverBloodType?:string;
     driverNationality?:string;
+    driverBirth?:Date | string;
     driverAge?:number;
 
     carBrand?:string;
