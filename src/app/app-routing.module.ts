@@ -13,7 +13,9 @@ const routes: Routes = [
       { path: 'admin', loadChildren: () => import('./components/administration/administration.module').then(m => m.AdministrationModule) },
       { path: 'coperativa', loadChildren: () => import('./components/cooperative/cooperative.module').then(m => m.CooperativeModule) },
     ]
-  }
+  },
+  // otherwise redirect to home
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
