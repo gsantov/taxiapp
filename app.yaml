@@ -1,5 +1,6 @@
 # [START runtime]
 runtime: python27
+service: taxiapp
 threadsafe: yes
 # [END runtime]
 handlers:
