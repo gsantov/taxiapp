@@ -1,3 +1,8 @@
+## Install with 
+npm install
+npm install --save chart.js @types/chart.js
+npm install --save ng2-charts
+
 # Taxiapp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
